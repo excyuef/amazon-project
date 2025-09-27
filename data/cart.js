@@ -1,8 +1,13 @@
-export const cart = [
-  {
-    productId: "0",
+export let cart = [{
+    productId: "id1",
     quantity: 0,
-  },
+  },{
+    productId: "id2",
+    quantity: 0,
+  },{
+    productId: "id3",
+    quantity: 2
+  }
 ];
 
 export function addToCart(productId) {
@@ -38,4 +43,17 @@ export function updateCartQuantity() {
   });
 
   document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+}
+
+export function removeFromCart (productId) {
+  const newCart = [];
+
+  cart.forEach((cartItem) => {
+    if (cartItem.productId !== productId) {
+    newCart.push(cartItem);
+    }
+  });
+
+  cart = newCart;
+  console.log(cart);
 }
