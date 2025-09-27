@@ -32,7 +32,7 @@ products.forEach((product) => {
           <div class="product-quantity-container">
             <select 
             class="js-quantity-selector-${product.id}">
-              <option value="1">1</option>
+              <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -69,7 +69,7 @@ const addedMessageTimeouts = {};
 // add interactive on add cart button
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', () => {k
       const {productId} = button.dataset;
       addToCart(productId);
       // check number in cart display

@@ -1,10 +1,15 @@
-export const cart = [];
+export const cart = [
+  {
+    productId: "0",
+    quantity: 0,
+  },
+];
 
-export function addToCart (productId) {
+export function addToCart(productId) {
   let matchingItem;
 
   cart.forEach((cartItem) => {
-    if ( productId ===  cartItem.productId) {
+    if (productId === cartItem.productId) {
       matchingItem = cartItem;
     }
   });
@@ -17,7 +22,6 @@ export function addToCart (productId) {
 
   if (matchingItem) {
     matchingItem.quantity += quantity;
-
   } else {
     cart.push({
       productId,
@@ -26,14 +30,12 @@ export function addToCart (productId) {
   }
 }
 
-export function updateCartQuantity () {
+export function updateCartQuantity() {
   let cartQuantity = 0;
 
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.quantity;
-  })
+  });
 
-  document.querySelector('.js-cart-quantity')
-  .innerHTML = cartQuantity;
-
+  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 }
