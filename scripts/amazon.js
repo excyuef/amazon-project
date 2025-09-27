@@ -60,7 +60,7 @@ document.querySelector('.js-product-grid').innerHTML = productHTML;
 // add interactive on add cart button
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
-    const productId = button.dataset.productId;
+    const {productId} = button.dataset;
 
     let matchingItem;
 
@@ -70,12 +70,18 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
       }
     });
 
+    const quantitySelector = document.querySelector(
+      `.js-quantity-selector-${productId}`);
+
+    const quantity = Number(quantitySelector.value);
+
     if (matchingItem) {
-      matchingItem.quantity += parseInt(document.querySelector(`.js-quantity-selector-${productId}`).value);
+      matchingItem.quantity += quantity;
+
     } else {
       cart.push({
-        productId: productId,
-        quantity: parseInt(document.querySelector(`.js-quantity-selector-${productId}`).value)
+        productId,
+        quantity,
       });
     }
 
@@ -88,5 +94,6 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     })
 
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    console.log(cart);
   });
 });
