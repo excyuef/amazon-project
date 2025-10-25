@@ -66,6 +66,8 @@ document.querySelector('.js-product-grid')
 
 const addedMessageTimeouts = {};
 
+updateCartQuantity();
+
 // add interactive on add cart button
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {

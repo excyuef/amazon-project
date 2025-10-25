@@ -42,7 +42,7 @@ export function addToCart(productId) {
 }
 
 //update cartquantity on navbar
-export function updateCartQuantity() {
+export function updateCartQuantity () {
   let cartQuantity = 0;
 
   cart.forEach((cartItem) => {
