@@ -1,8 +1,6 @@
 import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
-
-// generate the product on grid
+import {formatCurrency} from './utils/money.js';
 
 let productHTML = ``;
 
@@ -63,14 +61,15 @@ products.forEach((product) => {
           </button>
         </div>`
 });
-document.querySelector('.js-product-grid').innerHTML = productHTML;
+document.querySelector('.js-product-grid')
+  .innerHTML = productHTML;
 
 const addedMessageTimeouts = {};
 
 // add interactive on add cart button
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
-    button.addEventListener('click', () => {k
+    button.addEventListener('click', () => {
       const {productId} = button.dataset;
       addToCart(productId);
       // check number in cart display
