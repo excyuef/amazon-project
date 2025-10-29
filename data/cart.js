@@ -2,10 +2,10 @@ export let cart = JSON.parse(localStorage.getItem('cart'))
   if (!cart) {
     cart = [{
       productId: "id1",
-      quantity: 0,
+      quantity: 2,
     }, {
       productId: "id2",
-      quantity: 0,
+      quantity: 1,
     }
     ];
   }
@@ -65,4 +65,18 @@ export function removeFromCart (productId) {
   cart = newCart;
   
   saveToLocalStorage();
+}
+
+export function updateQuantity (productId, newQuantity) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if(productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+
+    matchingItem.quantity = newQuantity;
+
+    saveToLocalStorage();
+  });
 }
