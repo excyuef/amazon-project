@@ -155,6 +155,7 @@ let save = document.querySelectorAll('.js-save-link');
       const quantitySelector = document.querySelector(`.js-quantity-input-${productId}`);
 
       const newQuantity = Number(quantitySelector.value);
+      
       updateQuantity(productId, newQuantity);
       updateCartQuantity();
 
