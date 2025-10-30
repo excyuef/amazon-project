@@ -3,7 +3,7 @@ import {
   removeFromCart,
   updateQuantity
 } from '../data/cart.js';
-import {products} from '../data/products.js';
+import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
 let cartSummaryHTML = '';
@@ -130,8 +130,9 @@ document.querySelectorAll('.js-delete-link')
     });
   });
 
-const quantityUpdate = document.querySelectorAll('.js-update-quantity-link');
-  quantityUpdate.forEach((link) => {
+// saat 'update' dipencet
+document.querySelectorAll('.js-update-quantity-link')
+  .forEach((link) => {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
       
@@ -142,30 +143,44 @@ const quantityUpdate = document.querySelectorAll('.js-update-quantity-link');
     });
   });
 
-let save = document.querySelectorAll('.js-save-link');
-  save.forEach((link) => {
+// add event listener "enter"
+document.querySelectorAll('.js-save-link')
+  .forEach((link) => {
+    const productId = link.dataset.productId;
+    const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
+
     link.addEventListener('click', () => {
-      const productId = link.dataset.productId;
+      handleUpdateQuantity(productId, quantityInput);
+    });
 
-      const container = document.querySelector(
-        `.js-cart-item-container-${productId}`
-      );
-      container.classList.remove('is-editing-quantity');
-
-      const quantitySelector = document.querySelector(`.js-quantity-input-${productId}`);
-
-      const newQuantity = Number(quantitySelector.value);
-      
-      updateQuantity(productId, newQuantity);
-      updateCartQuantity();
-
-      const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
-
-      quantityLabel.innerHTML = newQuantity;
+    quantityInput.addEventListener('keydown', (event) =>  {
+      if (event.key === 'Enter') {
+        handleUpdateQuantity(productId, quantityInput);
+      }
     });
   }); 
 
-export function updateCartQuantity () {
+// validasi jumlah newQuantity
+function handleUpdateQuantity (productId, quantityInput) {
+  const newQuantity = Number(quantityInput.value);
+
+  if (newQuantity <= 0 || newQuantity >= 1000) {
+    alert('gabisa bro');
+    return;
+  }
+
+  updateQuantity(productId, newQuantity);
+
+  const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
+  quantityLabel.innerHTML = newQuantity;
+
+  updateCartQuantity();
+
+  const container = document.querySelector(`.js-cart-item-container-${productId}`);
+  container.classList.remove('is-editing-quantity');
+}
+
+function updateCartQuantity () {
   let cartQuantity = 0;
 
   cart.forEach((cartItem) => {
