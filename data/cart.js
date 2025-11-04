@@ -1,12 +1,15 @@
 export let cart = JSON.parse(localStorage.getItem('cart'))
   if (!cart) {
-    cart = [{
-      productId: "id1",
-      quantity: 2,
-    }, {
-      productId: "id2",
-      quantity: 1,
-    }
+    cart = [
+      {
+        productId: "id1",
+        quantity: 2,
+        deliveryOptionsId: '1'
+      }, {
+        productId: "id2",
+        quantity: 1,
+        deliveryOptionsId: '2'
+      }
     ];
   }
 
@@ -35,6 +38,7 @@ export function addToCart(productId) {
     cart.push({
       productId,
       quantity,
+      deliveryOptionsId: '1'
     });
   }
   
