@@ -95,6 +95,6 @@ export function updateDeliveryOption (productId, deliveryOptionId) {
   });
 
   matchingItem.deliveryOptionsId = deliveryOptionId;
-  console.log(matchingItem);
+
   saveToLocalStorage();
 }
