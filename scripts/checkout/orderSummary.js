@@ -4,34 +4,24 @@ import {
   updateQuantity,
   updateDeliveryOption
 } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+import { getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import { renderOrderPaymentHTML } from './orderPayment.js';
 
 
 export function renderOrderSummaryHTML () {
 
   let cartSummaryHTML = ``;
-  let matchingProduct;
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
-    products.forEach((product) => {
-      if (product.id === productId) {
-        matchingProduct = product;
-      }
-    });
+    const matchingProduct = getProduct(productId);
+    
+    const deliveryOptionId = cartItem.deliveryOptionsId;
 
-    let deliveryOptionId = cartItem.deliveryOptionsId;
-
-    let deliveryOption;
-
-    deliveryOptions.forEach((option) => {
-      if (option.id === deliveryOptionId) {
-        deliveryOption = option; 
-      }
-    });
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
     let deliveryDate = today.add(deliveryOption.deliveryDays, 'days'); 
@@ -149,7 +139,8 @@ export function renderOrderSummaryHTML () {
         const container = document.querySelector(`.js-cart-item-container-${productId}`)
 
         container.remove();
-        updateCartQuantity();
+        renderOrderSummaryHTML();
+        renderOrderPaymentHTML();
       });
     });
 
@@ -190,6 +181,7 @@ export function renderOrderSummaryHTML () {
 
         updateDeliveryOption(productId, deliveryOptionId);
         renderOrderSummaryHTML();
+        renderOrderPaymentHTML();
       });
     });
 }
@@ -223,4 +215,6 @@ function handleUpdateQuantity (productId, quantityInput) {
 
   const container = document.querySelector(`.js-cart-item-container-${productId}`);
   container.classList.remove('is-editing-quantity');
+
+  renderOrderPaymentHTML();
 }
