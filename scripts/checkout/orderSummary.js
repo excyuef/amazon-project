@@ -6,7 +6,7 @@ import {
 } from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
-import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption, calculateDeliverDate} from '../../data/deliveryOptions.js';
 import { renderOrderPaymentHTML } from './orderPayment.js';
 
 
@@ -23,9 +23,7 @@ export function renderOrderSummaryHTML () {
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
 
-    const today = dayjs();
-    let deliveryDate = today.add(deliveryOption.deliveryDays, 'days'); 
-    const dateString = deliveryDate.format('dddd, MMMM D');
+    const dateString = calculateDeliverDate(deliveryOption);
 
     cartSummaryHTML += `
       <div class="
