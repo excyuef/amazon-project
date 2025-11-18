@@ -1,6 +1,12 @@
 class Cart {
-  cartItems = undefined;
-  localStorageKey = undefined;
+  cartItems;
+  localStorageKey;
+
+  constructor (localStorageKey) {
+    this.localStorageKey = localStorageKey;
+
+    this.loadFromStorage();
+  }
 
   loadFromStorage () {
     this.cartItems = 
@@ -107,14 +113,8 @@ class Cart {
   } 
 }
 
-const cart = new Cart();
-const businessCart = new Cart();
-
-cart.localStorageKey = 'cart-oop';
-businessCart.localStorageKey = 'business-cart';
-
-cart.loadFromStorage();
-businessCart.loadFromStorage();
+const cart = new Cart('cart-oop');
+const businessCart = new Cart('business-cart');
 
 console.log(cart);
 console.log(businessCart);  
