@@ -28,6 +28,32 @@ class Product {
   }
 }
 
+class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+
+  constructor (productDetails) {
+    super(productDetails);
+    this.warrantyLink = productDetails.warrantyLink;
+    this.instructionsLink = productDetails.instructionsLink;
+  }
+
+  extraInfoHTML () {
+    return `
+      <a 
+      href="${this.instructionsLink}" 
+      target="_blank"> 
+        Instructions 
+      </a>
+      
+      <a 
+      href="${this.warrantyLink}" 
+      target="_blank"> 
+        Warranty 
+      </a>`;
+  }
+}
+
 class Clothing extends Product {
   sizeChartLink;
 
@@ -119,7 +145,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "id5",
@@ -304,7 +333,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "id17",
@@ -609,7 +641,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -669,7 +704,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -721,7 +759,9 @@ export const products = [
 ].map((productDetails) => {
   if (productDetails.type === "clothing") {
     return new Clothing (productDetails);
-  }
-
-  return new Product (productDetails);
+  } else if (productDetails.type === "appliance") {
+      return new Appliance (productDetails);
+    } else {
+        return new Product (productDetails);
+      }
 });
