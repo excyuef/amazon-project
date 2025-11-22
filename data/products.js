@@ -28,6 +28,7 @@ class Product {
   }
 }
 
+/*
 class Appliance extends Product {
   instructionsLink;
   warrantyLink;
@@ -53,6 +54,7 @@ class Appliance extends Product {
       </a>`;
   }
 }
+*/
 
 class Clothing extends Product {
   sizeChartLink;
@@ -94,13 +96,11 @@ export function loadProducts (fun) {
     products = JSON.parse(xhr.response).map((productDetails) => {
       if (productDetails.type === "clothing") {
         return new Clothing (productDetails);
-      } else if (productDetails.type === "appliance") {
-          return new Appliance (productDetails);
-        } else {
+      } else {
             return new Product (productDetails);
           }
     });
-    console.log('loaded');
+    console.log(products);
     fun();
   });
 
