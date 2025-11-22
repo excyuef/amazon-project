@@ -11,18 +11,13 @@ import { renderOrderPaymentHTML } from './orderPayment.js';
 
 
 export function renderOrderSummaryHTML () {
-
   let cartSummaryHTML = ``;
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-
-    const matchingProduct = getProduct(productId);
-    
+    const matchingProduct = getProduct(productId);   
     const deliveryOptionId = cartItem.deliveryOptionsId;
-
     const deliveryOption = getDeliveryOption(deliveryOptionId);
-
     const dateString = calculateDeliverDate(deliveryOption);
 
     cartSummaryHTML += `
