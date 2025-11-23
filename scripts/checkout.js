@@ -12,13 +12,12 @@ async function loadPage () {
     await new Promise ((resolve, reject) => {
       // throw 'error10';
       loadCart(() => {
-        // resolve();
-        reject();
+        resolve();
+        // reject();
       });
     });
   } catch (error) {
     console.log('error, coba lagi nanti ya njing');
-    console.log(error);
   }
 
   renderOrderPayment();
