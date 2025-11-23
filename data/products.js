@@ -91,9 +91,11 @@ export let products = [];
 
 export function loadProductsFetch () {
   const promise = fetch(
-    'https://supersimplebackend.dev/products'     
+    'https://supersimplebackend.dev/products' 
+
     ).then((response) => {
         return response.json();
+
       }).then((productsData) => {
         products = productsData.map((productDetails) => {
           if (productDetails.type === "clothing") {
@@ -104,12 +106,14 @@ export function loadProductsFetch () {
         });
 
         console.log('load Products');
-      });
+      })/*.catch(() => {
+        console.log('error, coba lagi nanti ya njing');
+      });*/
 
   return promise;
 }
 
-/*
+
 export function loadProducts (fun) {
   const xhr = new XMLHttpRequest();
 
@@ -125,10 +129,17 @@ export function loadProducts (fun) {
     fun();
   });
 
-  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.addEventListener('error', (error) => {
+    console.log('error, coba lagi nanti ya njing');
+    console.log(error);
+  })
+
+  xhr.open('GET', 'https://error.supersimplebackend.dev/products');
   xhr.send();
 }
 
+
+/*
 export const products = [
   {
     id: "id1",
