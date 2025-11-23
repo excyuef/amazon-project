@@ -73,7 +73,7 @@ class Clothing extends Product {
         Size Chart 
       </a>`;
   }
-}
+} 
 
 export function getProduct (productId) {
   let matchingProduct;

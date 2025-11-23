@@ -6,11 +6,14 @@ import {
 } from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
-import { deliveryOptions, getDeliveryOption, calculateDeliverDate} from '../../data/deliveryOptions.js';
-import { renderOrderPaymentHTML } from './orderPayment.js';
+import { 
+  deliveryOptions, 
+  getDeliveryOption, 
+  calculateDeliverDate} from '../../data/deliveryOptions.js';
+import { renderOrderPayment } from './orderPayment.js';
 
 
-export function renderOrderSummaryHTML () {
+export function renderOrderSummary () {
   let cartSummaryHTML = ``;
 
   cart.forEach((cartItem) => {
@@ -132,8 +135,8 @@ export function renderOrderSummaryHTML () {
         const container = document.querySelector(`.js-cart-item-container-${productId}`)
 
         container.remove();
-        renderOrderSummaryHTML();
-        renderOrderPaymentHTML();
+        renderOrderSummary();
+        renderOrderPayment();
       });
     });
 
@@ -173,8 +176,8 @@ export function renderOrderSummaryHTML () {
         const {productId, deliveryOptionId} = element.dataset;
 
         updateDeliveryOption(productId, deliveryOptionId);
-        renderOrderSummaryHTML();
-        renderOrderPaymentHTML();
+        renderOrderSummary();
+        renderOrderPayment();
       });
     });
 }
@@ -209,5 +212,5 @@ function handleUpdateQuantity (productId, quantityInput) {
   const container = document.querySelector(`.js-cart-item-container-${productId}`);
   container.classList.remove('is-editing-quantity');
 
-  renderOrderPaymentHTML();
+  renderOrderPayment();
 }
