@@ -1,21 +1,15 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderOrderPayment } from "./checkout/orderPayment.js";
 import { loadProductsFetch } from "../data/products.js";
-import {loadCart} from '../data/cart.js'
+import { loadCartFetch } from '../data/cart.js'
 
 
 async function loadPage () {
   try {
-
-    await loadProductsFetch();
-
-    await new Promise ((resolve, reject) => {
-      // throw 'error10';
-      loadCart(() => {
-        resolve();
-        // reject();
-      });
-    });
+    await Promise.all([
+      loadProductsFetch(),
+      loadCartFetch()
+    ]);
   } catch (error) {
     console.log('error, coba lagi nanti ya njing');
   }
