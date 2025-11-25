@@ -10,9 +10,10 @@ async function loadPage () {
       loadProductsFetch(),
       loadCartFetch()
     ]);
+    
   } catch (error) {
-    console.log('error, coba lagi nanti ya njing');
-  }
+      console.log('error, coba lagi nanti ya njing');
+    }
 
   renderOrderPayment();
   renderOrderSummary();

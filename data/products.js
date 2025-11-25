@@ -918,5 +918,3 @@ async function postGreetingTwo() {
     }
   }
 }
-
-postGreetingTwo();
