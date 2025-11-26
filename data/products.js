@@ -113,7 +113,7 @@ export function loadProductsFetch () {
   return promise;
 }
 
-
+/*
 export function loadProducts (fun) {
   const xhr = new XMLHttpRequest();
 
@@ -891,7 +891,7 @@ async function postGreeting () {
 }
 
 postGreeting();
-*/
+
 
 async function postGreetingTwo() {
   try {
@@ -918,3 +918,4 @@ async function postGreetingTwo() {
     }
   }
 }
+  */

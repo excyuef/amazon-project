@@ -13,7 +13,7 @@ export function renderOrderPayment () {
     const product = getProduct(cartItem.productId);
     productPriceCents += product.priceCents * cartItem.quantity;
 
-    const deliveryOption = getDeliveryOption(cartItem.deliveryOptionsId);
+    const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
 
     shippingPriceCents += deliveryOption.priceCents;
 
@@ -21,11 +21,8 @@ export function renderOrderPayment () {
   });
 
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
-
   const taxCents = totalBeforeTaxCents * 0.1;
-
   const totalCents = totalBeforeTaxCents + taxCents;
-
   const paymentSummaryHTML = 
   `
     <div class="payment-summary-title">

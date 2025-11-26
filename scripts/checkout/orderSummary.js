@@ -97,14 +97,14 @@ export function renderOrderSummary () {
         ? 'FREE'
         : `$${formatCurrency(deliveryOption.priceCents)} -`;
       
-      const isChecked = deliveryOption.id === cartItem.deliveryOptionsId;
+      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
       html += 
         `
           <div 
           class="delivery-option js-delivery-option"
           data-product-id="${matchingProduct.id}"
-          data-delivery-option-id="${deliveryOption.id}"
+          data-delivery-options-id="${deliveryOption.id}"
           >
             <input type="radio"
               ${isChecked ? 'checked' : ''}
@@ -169,13 +169,13 @@ export function renderOrderSummary () {
         }
       });
     }); 
-
+      
   document.querySelectorAll('.js-delivery-option')
     .forEach((element) => {
       element.addEventListener('click', () => {
-        const {productId, deliveryOptionId} = element.dataset;
+        const {productId, deliveryOptionsId} = element.dataset;
 
-        updateDeliveryOption(productId, deliveryOptionId);
+        updateDeliveryOption(productId, deliveryOptionsId);
         renderOrderSummary();
         renderOrderPayment();
       });
