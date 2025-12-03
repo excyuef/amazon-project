@@ -1,15 +1,18 @@
-import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
+import {addToCart, updateCartQuantity} from '../data/cart.js';
 import {products, loadProductsFetch} from '../data/products.js';
 
 loadProductsFetch().then(() => {
-  renderProductsGrid();
+  renderProductsGrid(products);
 });
 
-function renderProductsGrid () {
+function renderProductsGrid (data) {
   let productHTML = ``;
 
-  products.forEach((product) => {
-    productHTML += 
+  if (data.length == 0) {
+    productHTML += `<p>kosong</p>`
+  } else {
+      data.forEach((product) => {
+      productHTML += 
           `<div class="product-container">
             <div class="product-image-container">
               <img class="product-image"
@@ -66,7 +69,9 @@ function renderProductsGrid () {
               Add to Cart
             </button>
           </div>`
-  });
+      });
+    }
+    
   document.querySelector('.js-product-grid')
     .innerHTML = productHTML;
 
@@ -103,4 +108,38 @@ function renderProductsGrid () {
         addedMessageTimeouts[productId] = timeoutId;
       });
     });
+}
+
+const searchBar = document.querySelector('.search-bar');
+const searchBtn = document.querySelector('.search-button');
+
+searchBar.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    handleSearch();
+  } 
+})
+
+searchBtn.addEventListener('click', handleSearch);
+
+function handleSearch () {
+  const key = searchBar.value;
+  const displayProducts = searchProducts(key);
+  
+  key 
+    ? renderProductsGrid(displayProducts)
+    : renderProductsGrid(products) ;
+    
+  searchBar.value = ''
+}
+
+function searchProducts (key) {
+  const display = [];
+
+  products.forEach( (productDetails) => {
+    if (productDetails.keywords.includes(key)) {
+      display.push(productDetails)
+    }
+  });
+  
+  return display;
 }
