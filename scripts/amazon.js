@@ -9,8 +9,10 @@ function renderProductsGrid (data) {
   let productHTML = ``;
 
   if (data.length == 0) {
-    productHTML += `<p>kosong</p>`
+    document.querySelector('.center').style.display = 'block';
+
   } else {
+      document.querySelector('.center').style.display = 'none';
       data.forEach((product) => {
       productHTML += 
           `<div class="product-container">
@@ -122,24 +124,32 @@ searchBar.addEventListener('keydown', (event) => {
 searchBtn.addEventListener('click', handleSearch);
 
 function handleSearch () {
-  const key = searchBar.value;
-  const displayProducts = searchProducts(key);
-  
-  key 
-    ? renderProductsGrid(displayProducts)
-    : renderProductsGrid(products) ;
+  const key = normalizeString(searchBar.value);
+  console.log(key);
+  const displayProducts = 
+    key 
+      ? searchProducts(key)
+      : products;
+
+  renderProductsGrid(displayProducts);
     
   searchBar.value = ''
 }
 
 function searchProducts (key) {
-  const display = [];
-
-  products.forEach( (productDetails) => {
-    if (productDetails.keywords.includes(key)) {
-      display.push(productDetails)
-    }
+  return products.filter( productDetails => {
+    
+    // normalisasi semua keyword dulu
+    const normalizedKeywords = 
+      productDetails.keywords.map( k => normalizeString(k));
+    
+    return normalizedKeywords.includes(key);
   });
-  
-  return display;
+}
+
+function normalizeString (str) {
+  return str
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "");
 }

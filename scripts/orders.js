@@ -3,7 +3,6 @@ import { orders } from '../data/orders.js';
 import { loadProductsFetch } from "../data/products.js";
 import { getProduct } from "../data/products.js";
 
-console.log(orders);
 
 async function loadPage () {
   await loadProductsFetch();
@@ -17,7 +16,7 @@ async function loadPage () {
     const priceTotal = 
       formatCurrency(order.totalCostCents);
 
-    orderHTML += 
+    orderHTML += productDetails(order) ?
       `
       <div class="order-container">
           
@@ -43,7 +42,7 @@ async function loadPage () {
             ${productDetails(order)}
           </div>
         </div>
-      `
+      ` : ""
   });
 
   document.querySelector('.orders-grid')
@@ -55,19 +54,21 @@ function productDetails (order) {
 
   order.products.forEach( orderProducts => {
     const product = getProduct(orderProducts.productId);
-
-    html += 
+    const estimated = dayjs(orderProducts.estimatedDeliveryTime).format('MMMM DD')
+    const todayproduct = dayjs().format('DD-MM').split("-");
+    const estimatedproduct = dayjs(orderProducts.estimatedDeliveryTime).format('DD-MM').split("-");
+    html += Number(todayproduct[0]) <= Number(estimatedproduct[0]) && Number(todayproduct[1]) <= Number(estimatedproduct[1]) ?  
     `
       <div class="product-image-container">
         <img src=${product.image}>
       </div>
 
       <div class="product-details">
-        <div   class="product-name">
+        <div class="product-name">
           ${product.name}
         </div>
         <div class="product-delivery-date">
-          Arriving on: ${dayjs(orderProducts.estimatedDeliveryTime).format('MMMM D')}
+          Arriving on: ${estimated}
         </div>
         <div class="product-quantity">
           Quantity: ${orderProducts.quantity}
@@ -85,7 +86,7 @@ function productDetails (order) {
           </button>
         </a>
       </div>
-    `
+    ` : ""
   });
   
 
@@ -93,3 +94,7 @@ function productDetails (order) {
 }
 
 loadPage();
+setInterval(() => {
+  loadPage();
+  console.log('tampil');
+}, 1000);
