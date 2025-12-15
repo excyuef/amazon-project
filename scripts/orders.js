@@ -3,7 +3,12 @@ import { orders } from '../data/orders.js';
 import { loadProductsFetch } from "../data/products.js";
 import { getProduct } from "../data/products.js";
 
-console.log(orders);
+const today = dayjs().format('DD MM');
+const [dayNow, monthNow] = today.split(' ').map(Number);
+/* console.log(today);
+console.log(day);
+console.log(month);
+*/
 
 async function loadPage () {
   await loadProductsFetch();
@@ -17,7 +22,11 @@ async function loadPage () {
     const priceTotal = 
       formatCurrency(order.totalCostCents);
 
+    const product = productDetails(order); 
+    
+
     orderHTML += 
+    product ? 
       `
       <div class="order-container">
           
@@ -40,10 +49,10 @@ async function loadPage () {
           </div>
 
           <div class="order-details-grid">
-            ${productDetails(order)}
+            ${product}
           </div>
         </div>
-      `
+      ` : ''
   });
 
   document.querySelector('.orders-grid')
@@ -55,8 +64,16 @@ function productDetails (order) {
 
   order.products.forEach( orderProducts => {
     const product = getProduct(orderProducts.productId);
+    const estimated = dayjs(orderProducts.estimatedDeliveryTime);
+    const estimatedStr = estimated.format('DD MM');
+    const [day, month] = estimatedStr.split(' ').map(Number);
+    /*
+    console.log(estimatedStr);
+    console.log(day);
+    console.log(month);
+    */
 
-    html += 
+    html += day >= dayNow && month >= monthNow ?
     `
       <div class="product-image-container">
         <img src=${product.image}>
@@ -67,7 +84,7 @@ function productDetails (order) {
           ${product.name}
         </div>
         <div class="product-delivery-date">
-          Arriving on: ${dayjs(orderProducts.estimatedDeliveryTime).format('MMMM D')}
+          Arriving on: ${estimated.format('MMMM D')}
         </div>
         <div class="product-quantity">
           Quantity: ${orderProducts.quantity}
@@ -85,7 +102,7 @@ function productDetails (order) {
           </button>
         </a>
       </div>
-    `
+    ` : ''
   });
   
 
