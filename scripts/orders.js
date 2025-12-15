@@ -26,33 +26,32 @@ async function loadPage () {
     
 
     orderHTML += 
-    product ? 
-      `
-      <div class="order-container">
-          
-          <div class="order-header">
-            <div class="order-header-left-section">
-              <div class="order-date">
-                <div class="order-header-label">Order Placed:</div>
-                <div>${orderTimeString}</div>
+      product 
+      ? `<div class="order-container">
+            
+            <div class="order-header">
+              <div class="order-header-left-section">
+                <div class="order-date">
+                  <div class="order-header-label">Order Placed:</div>
+                  <div>${orderTimeString}</div>
+                </div>
+                <div class="order-total">
+                  <div class="order-header-label">Total:</div>
+                  <div>$${priceTotal}</div>
+                </div>
               </div>
-              <div class="order-total">
-                <div class="order-header-label">Total:</div>
-                <div>$${priceTotal}</div>
+
+              <div class="order-header-right-section">
+                <div class="order-header-label">Order ID:</div>
+                <div>${order.id}</div>
               </div>
             </div>
 
-            <div class="order-header-right-section">
-              <div class="order-header-label">Order ID:</div>
-              <div>${order.id}</div>
+            <div class="order-details-grid">
+              ${product}
             </div>
           </div>
-
-          <div class="order-details-grid">
-            ${product}
-          </div>
-        </div>
-      ` : ''
+        ` : ''
   });
 
   document.querySelector('.orders-grid')
@@ -73,36 +72,36 @@ function productDetails (order) {
     console.log(month);
     */
 
-    html += day >= dayNow && month >= monthNow ?
-    `
-      <div class="product-image-container">
-        <img src=${product.image}>
-      </div>
+    html += 
+      day >= dayNow && month >= monthNow 
+      ?  `<div class="product-image-container">
+            <img src=${product.image}>
+          </div>
 
-      <div class="product-details">
-        <div   class="product-name">
-          ${product.name}
-        </div>
-        <div class="product-delivery-date">
-          Arriving on: ${estimated.format('MMMM D')}
-        </div>
-        <div class="product-quantity">
-          Quantity: ${orderProducts.quantity}
-        </div>
-        <button class="buy-again-button button-primary">
-          <img class="buy-again-icon" src="images/icons/buy-again.png">
-          <span class="buy-again-message">Buy it again</span>
-        </button>
-      </div>
+          <div class="product-details">
+            <div   class="product-name">
+              ${product.name}
+            </div>
+            <div class="product-delivery-date">
+              Arriving on: ${estimated.format('MMMM D')}
+            </div>
+            <div class="product-quantity">
+              Quantity: ${orderProducts.quantity}
+            </div>
+            <button class="buy-again-button button-primary">
+              <img class="buy-again-icon" src="images/icons/buy-again.png">
+              <span class="buy-again-message">Buy it again</span>
+            </button>
+          </div>
 
-      <div class="product-actions">
-        <a href="tracking.html?orderId=${order.id}&cartItemId=${product.id}">
-          <button class="track-package-button button-secondary">
-            Track package
-          </button>
-        </a>
-      </div>
-    ` : ''
+          <div class="product-actions">
+            <a href="tracking.html?orderId=${order.id}&cartItemId=${product.id}">
+              <button class="track-package-button button-secondary">
+                Track package
+              </button>
+            </a>
+          </div>
+        ` : ''
   });
   
 
