@@ -66,6 +66,7 @@ function productDetails (order) {
     const estimated = dayjs(orderProducts.estimatedDeliveryTime);
     const estimatedStr = estimated.format('DD MM');
     const [day, month] = estimatedStr.split(' ').map(Number);
+
     /*
     console.log(estimatedStr);
     console.log(day);
@@ -104,7 +105,6 @@ function productDetails (order) {
         ` : ''
   });
   
-
   return html;  
 }
 
