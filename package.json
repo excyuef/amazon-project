@@ -1,0 +1,26 @@
+{
+  "name": "amazon-project",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/excyuef/amazon-project#readme",
+  "bugs": {
+    "url": "https://github.com/excyuef/amazon-project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/excyuef/amazon-project.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.2"
+  }
+}

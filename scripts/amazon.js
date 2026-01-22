@@ -1,19 +1,19 @@
-import {addToCart, updateCartQuantity} from '../data/cart.js';
-import {products, loadProductsFetch} from '../data/products.js';
+import { addToCart, updateCartQuantity } from '../data/cart.js';
+import { products, loadProductsFetch } from '../data/products.js';
 
 loadProductsFetch().then(() => {
   renderProductsGrid(products);
 });
 
-function renderProductsGrid (data) {
+function renderProductsGrid(data) {
   let productHTML = ``;
 
   if (data.length == 0) {
     productHTML += `<p>kosong</p>`
   } else {
-      data.forEach((product) => {
-      productHTML += 
-          `<div class="product-container">
+    data.forEach((product) => {
+      productHTML +=
+        `<div class="product-container">
             <div class="product-image-container">
               <img class="product-image"
                 src="${product.image}">
@@ -69,9 +69,9 @@ function renderProductsGrid (data) {
               Add to Cart
             </button>
           </div>`
-      });
-    }
-    
+    });
+  }
+
   document.querySelector('.js-product-grid')
     .innerHTML = productHTML;
 
@@ -83,14 +83,14 @@ function renderProductsGrid (data) {
   document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
       button.addEventListener('click', () => {
-        const {productId} = button.dataset;
+        const { productId } = button.dataset;
         addToCart(productId);
         // check number in cart display
         updateCartQuantity();
         // visible the text green add
-        
+
         const addedMessage = document.querySelector(
-        `.js-added-to-cart-${productId}`
+          `.js-added-to-cart-${productId}`
         );
 
         addedMessage.classList.add("added-to-cart-visible");
@@ -116,30 +116,32 @@ const searchBtn = document.querySelector('.search-button');
 searchBar.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     handleSearch();
-  } 
+  }
 })
 
 searchBtn.addEventListener('click', handleSearch);
 
-function handleSearch () {
+function handleSearch() {
   const key = searchBar.value;
   const displayProducts = searchProducts(key);
-  
-  key 
+
+  key
     ? renderProductsGrid(displayProducts)
-    : renderProductsGrid(products) ;
-    
+    : renderProductsGrid(products);
+
   searchBar.value = ''
 }
 
-function searchProducts (key) {
+function searchProducts(key) {
   const display = [];
 
-  products.forEach( (productDetails) => {
+  products.forEach((productDetails) => {
     if (productDetails.keywords.includes(key)) {
       display.push(productDetails)
     }
   });
-  
+
   return display;
 }
+
+
